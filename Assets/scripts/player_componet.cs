@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class pllayer_componet : MonoBehaviour
 {
-    public float moveSpeed = 50f;
+    //silnik fizyczny dla obiektu gracza
+    Rigidbody rb;
+    //si³a skoku
+    public float jumpForce = 5f;
+
+    public float moveSpeed = 5f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //przypnij rigidbody gracza do zmiennej rb
+        rb = GetComponent<Rigidbody>();    
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //idzie w prawe sam
         //transform.position += new Vector3(1, 0, 3) * Time.deltaTime;
@@ -41,8 +47,31 @@ public class pllayer_componet : MonoBehaviour
         movment *= moveSpeed;
 
         //przesun gracza w osi x
-        transform.position += movment;
+        //transform.position += movment;
 
+        //próbujemy u¿yc translate zamiast dodawac wspó³rzêdne
+        transform.Translate(movment);
 
+    }
+    //proba obejscia problemu z opóŸnieniem wejœcia poprzez przeniesienie go do update
+
+    private void Update()
+    {
+        //sprawdz czy nacisnieto spacjê (skok)
+        //zwraca true jeœli zaczêliœmy naciskaæ spacjê w trakcie klatki animacji
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+        //sprawdz czy znajduje siê na poziomie 0
+        if (transform.position.y <= Mathf.Epsilon)
+        {
+        //dodaj si³ê skoku
+         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 }
