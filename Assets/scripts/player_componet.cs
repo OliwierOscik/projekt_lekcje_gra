@@ -26,7 +26,7 @@ public class pllayer_componet : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
 
         //wysiwetluje stan klawy
-        Debug.Log(x);
+        //Debug.Log(x);
 
         //wylicz przesuniecie w osi x
         Vector3 movment = Vector3.right * x;
@@ -73,5 +73,11 @@ public class pllayer_componet : MonoBehaviour
         //dodaj si³ê skoku
          rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+
+    {
+        Debug.Log("BOOM");
     }
 }
