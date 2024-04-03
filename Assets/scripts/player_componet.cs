@@ -78,6 +78,21 @@ public class pllayer_componet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
 
     {
-        Debug.Log("BOOM");
+        //funkcja wykrwyje kazdy collider ktory jest trigerem
+        //(moze byc wszystko typu kamera albo box)
+
+        if (other.CompareTag("LevelEnd"))
+        {
+            //stanelismy w miejscu gdzie sie wygrywa
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().OnWin();
+        }
+
+        if (other.CompareTag("CameraView"))
+        {
+            //zobaczy³a nas kamera - przegrana
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().OnLose();
+
+        }
+
     }
 }
